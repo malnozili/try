@@ -1,0 +1,21 @@
+Uses:
+
+
+on:
+    workflow_call:
+  # Allows you to run this workflow manually from the Actions tab
+  # workflow_dispatch:
+  pull_request:
+    types: [opened, reopened]
+    branches: [master]
+jobs:
+  check-branch:
+    name: branch - ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - uses: malnozili/automation/.github/workflows/reusable-workflow.yml@${{ github.event.pull_request.head.ref }}
+      # - name: Create first bench
+      #   run: |
+      #     echo 'The branch name is' ${{ github.ref_name }}
+      #     echo 
